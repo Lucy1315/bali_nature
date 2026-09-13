@@ -35,7 +35,7 @@ npm run dev       # python3 -m http.server 3780  →  http://localhost:3780
 | S-06 예산 보호 | Food 직접 입력 후 다른 지역 선택 → "지역 기본값으로 되돌리기" | Food 유지, 나머지 6개만 교체. 되돌리기 후 7개 전부 새 지역 값 | US2-8 |
 | S-07 체크리스트 | 3개 체크 | 각 행 체크 표시, "3 / 6", My Bali Year Checklist "3 / 6" 즉시 | 완료 조건 4, US3-4 |
 | S-08 새로고침 유지 | S-01·02·04·05·07 수행 후 F5, 탭 닫고 재열기 | 지역·필터·예산 7항목·환율·체크 3개 모두 동일 | 완료 조건 5, SC-004 |
-| S-09 5폭 overflow | 개발자 도구 기기 모드에서 320·390·768·1024·1440px 각각 콘솔 `document.documentElement.scrollWidth === document.documentElement.clientWidth` | 다섯 폭 모두 `true`. 모바일에서 격자 1열 | 완료 조건 6, SC-005 |
+| S-09 5폭 overflow | `http://localhost:3780/scripts/overflow-check.html`을 열면 같은 출처 iframe 5개(320·390·768·1024·1440px)가 `scrollWidth === clientWidth`와 넘치는 요소를 자동 측정한다. 개발자 도구 기기 모드로 직접 확인해도 된다 | 다섯 폭 모두 `true`. 모바일에서 격자 1열 | 완료 조건 6, SC-005 |
 | S-10 키보드 | 페이지 처음부터 Tab만으로 이동 | nav → Hero CTA → 필터 5개 → 지역 선택 4개 → 예산 입력 8개 → 체크 6개 → 요약 액션 순으로 포커스 링(`--palm`) 보임. Enter/Space로 조작됨 | SC-009, DESIGN §8 |
 | S-11 모션 | OS 움직임 감소 켜고 새로고침 | 전환 없음(즉시 반영) | DESIGN §7 |
 | S-12 비자 안내 | Visa & Stay 두 영역 확인 | 각 영역 Last updated 날짜, 이민청 링크·안내 문구. "가능하다·된다·허용된다" 검색 0건 | 완료 조건 8, SC-007 |
