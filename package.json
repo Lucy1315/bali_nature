@@ -1,0 +1,17 @@
+{
+  "name": "bali-365",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "BALI 365 — 디지털노마드로 발리에서 1년 살기 (정적 싱글페이지)",
+  "scripts": {
+    "dev": "python3 -m http.server 3780",
+    "test": "node --test 'tests/*.test.js' && node scripts/contrast.mjs && node scripts/lint-content.mjs",
+    "test:unit": "node --test 'tests/*.test.js'",
+    "check:contrast": "node scripts/contrast.mjs",
+    "check:content": "node scripts/lint-content.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

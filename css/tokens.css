@@ -1,0 +1,68 @@
+/* BALI 365 디자인 토큰 — 단일 출처: /DESIGN.md (절 번호를 주석에 병기) */
+:root {
+  /* §2.1 색 */
+  --canvas: #F5F1E8;          /* Warm sand — 페이지 배경 */
+  --surface: #FFFCF5;         /* 카드·입력·요약 카드 배경 */
+  --ink: #29302B;             /* 본문·제목 */
+  --ink-muted: #63655E;       /* 보조 텍스트 (AA 보정, §3.2) */
+  --muted-raw: #74756F;       /* 24px 이상 큰 텍스트·입력 테두리·비활성 아이콘 */
+  --palm: #486554;            /* 선택·현재·진행 */
+  --ocean: #7FAFB3;           /* 비텍스트 강조 */
+  --ocean-ink: #356C72;       /* Ocean 계열 텍스트 */
+  --terracotta: #C8795B;      /* 비텍스트 강조 */
+  --terracotta-ink: #9E5A40;  /* 오류·주의 텍스트 */
+  --hairline: #DED8CC;        /* 장식 구분선·카드 테두리 */
+  --white: #FFFFFF;
+
+  /* §3.1 서체 */
+  --font-ko: "Pretendard Variable", Pretendard, system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-en: Inter, "Pretendard Variable", Pretendard, system-ui, -apple-system, sans-serif;
+
+  /* §3.1 타입 스케일 — clamp(모바일, 유동, 데스크톱). Tablet은 중간값 */
+  --fs-hero: clamp(3rem, 1.5rem + 5vw, 5.25rem);           /* 48 → 84 */
+  --fs-hero-sub: clamp(1.25rem, 1rem + 1vw, 1.75rem);       /* 20 → 28 */
+  --fs-section: clamp(2.25rem, 1.5rem + 2.5vw, 3.25rem);    /* 36 → 52 */
+  --fs-eyebrow: 0.75rem;                                    /* 12 */
+  --fs-card-title: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);  /* 20 → 24 */
+  --fs-body: clamp(1rem, 0.95rem + 0.2vw, 1.0625rem);       /* 16 → 17 */
+  --fs-caption: clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);/* 12 → 13 */
+  --fs-budget: clamp(2.5rem, 1.75rem + 2.5vw, 3.5rem);      /* 40 → 56 */
+  --fs-summary: clamp(1.5rem, 1.25rem + 1vw, 2rem);         /* 24 → 32 */
+  --fs-month: 2rem;                                         /* 32 */
+
+  --lh-tight: 1.0;
+  --lh-heading: 1.1;
+  --lh-body: 1.7;
+  --lh-caption: 1.5;
+  --ls-eyebrow: 0.12em;
+  --ls-display: -0.02em;
+
+  /* §4 레이아웃 */
+  --container-max: 1200px;
+  --container-pad: 24px;
+  --container-pad-mobile: 16px;
+  --grid-gutter: 24px;
+  --space-section: 128px;      /* Desktop (96~140) */
+  --space-section-tablet: 96px;
+  --space-section-mobile: 72px;
+  --space-title-gap: 40px;
+  --space-title-gap-mobile: 24px;
+  --gap-card: 24px;            /* 20~28 */
+  --gap-card-mobile: 16px;
+  --measure: 68ch;
+
+  /* §6 컴포넌트 */
+  --radius-card: 18px;         /* 16~20 */
+  --radius-summary: 20px;
+  --radius-btn: 10px;
+  --radius-field: 8px;
+  --btn-height: 44px;
+  --field-height: 48px;
+  --pill-height: 36px;
+  --nav-height: 64px;
+
+  /* §7 모션 */
+  --dur: 200ms;
+  --dur-slow: 300ms;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+}
