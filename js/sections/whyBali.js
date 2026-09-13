@@ -1,14 +1,9 @@
-// Why Bali — FR-012, DESIGN §5.2
+// Why Bali — FR-012. 관점 하나 = 장면 하나(part: 'work'|'life'|'nature'|'community')
 import { el } from '../lib/dom.js';
 
-export function render(root, data) {
-  const body = root.querySelector('[data-section-body]');
-  body.append(el('div', { class: 'grid grid--2 why-grid' },
-    data.copy.whyBali.map((w) => el('article', { class: 'why-item' },
-      el('p', { class: 'eyebrow', text: w.eyebrow }),
-      el('h3', { class: 'card-title', text: w.title }),
-      el('p', { class: 'measure', text: w.body }),
-    )),
-  ));
+export function render(root, data, state, part) {
+  const item = data.copy.whyBali.find((w) => w.id === part);
+  if (!item) return;
+  root.querySelector('[data-section-body]').append(el('p', { class: 'lead measure', text: item.body }));
 }
 export function bind() {}

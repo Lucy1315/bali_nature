@@ -388,3 +388,14 @@ US5·US6은 콘텐츠 보강이며 완료 조건 8(비자 안내)은 US3에서 �
   - 요구: SC-005 · 디자인: — · 확인: `scripts/overflow-check.html` 5폭 `true`
 - [X] T057 검증 기록 v3(`verification.md`) · Artifact 미리보기 재발행 · GitHub 푸시
   - 요구: 헌장 VIII · 확인: 아래 verification.md "v3" 절
+
+---
+
+## Phase 11: 장면 9 → 18 분할 (2026-09-13, "정보가 너무 많다" 피드백)
+
+- [X] T058 Commons에서 9장 추가 선정·다운로드·WebP(밤 노트북·논 카페·클링킹·브라탄·사누르 산책·공항 독서 코너·타나롯·트게눙안·테갈랄랑), CREDITS 22행 재생성
+  - 요구: FR-045~047 · 확인: `ls assets/images | wc -l` = 44, CREDITS 22행
+- [X] T059 `data/scenes.js` 18장면(module/part) · `index.html` 18섹션 · `js/app.js` part 전달 · whyBali/timeline/workLive/visaStay/localLife 모듈 part 분기
+  - 요구: FR-045·049 · 확인: 콘솔 오류 0, 18장면 본문 렌더
+- [X] T060 5폭 overflow 재검증, "null" 텍스트 결함 수정(timeline 조건부 append), 미리보기·GitHub Pages 재배포
+  - 요구: SC-005·SC-011 · 확인: verification.md v3.1

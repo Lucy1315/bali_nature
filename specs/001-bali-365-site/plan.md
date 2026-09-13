@@ -228,3 +228,21 @@ Wikimedia Commons API로 후보 검색(가로형·1600px 이상·CC BY/BY-SA/CC0
 | `js/sections/scene.js` (신규) · `js/journey.js` (신규) · `hero.js`·`areaExplorer.js` | 장면 렌더, 모션, 사진 카드 |
 | `scripts/contrast.mjs` | 다크 팔레트 15조합으로 교체 |
 | `scripts/overflow-check.html` | sticky 배경 제외 |
+
+### v3.1 (2026-09-13): 장면 9 → 18 분할
+
+사용자 피드백 "정보가 너무 많은데 페이지를 더 넣어서 사진을 더 넣어줘"에 따라 장면당 정보량을 줄이고 사진을 늘렸다.
+
+| 이전 장면 | 분할 후 | 사진 |
+|---|---|---|
+| Why Bali (2×2 카드) | why-work · why-life · why-nature · why-community (관점당 한 장면, 글 한 단락) | 밤 노트북(CC0) · 논 위 카페 · 테갈랄랑 논 · 케착 |
+| 12 Months (12카드) | months-1~4 (분기당 3달) | 우붓 논(우기) · 바투르 일출 · 클링킹 절벽 · 브라탄 사원 |
+| Work & Live (5기준+표+시차·루틴) | work (기준 3 + 지역 비교 표) · rhythm (시차·루틴) | 노트북 작업 · 사누르 아침 해변 |
+| Visa & Stay (정보 2카드 + 체크리스트) | visa-stay (정보) · checklist | 공항 정문 · 공항 독서 코너 |
+| Local Life (6카드) | local-1 (문화·사원·공동체) · local-2 (교통·건강·쓰레기) | 타나롯 · 트게눙안 폭포 |
+
+- `data/scenes.js`가 장면마다 `module`과 `part`를 지정하고, `js/app.js`가 `mod.render(root, data, state, part)` /
+  `mod.bind(root, store, data, part)`로 호출한다. 섹션 모듈은 part에 따라 일부만 그린다(whyBali·timeline·workLive·visaStay·localLife).
+- 내비 앵커: Why Bali→`#why-work`, 12 Months→`#months-1`, Work & Live→`#work`, Local Life→`#local-1`. 요약 카드의
+  Checklist 링크→`#checklist`.
+- 사진 22장(장면 18 + 지역 카드 4), `assets/images` 약 8.7MB(1920·960 두 벌). 모두 lazy 로드(Hero 제외).

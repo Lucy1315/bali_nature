@@ -111,3 +111,16 @@ Framer DESIGN.md 원본 + Wikimedia Commons CC 사진 13장 + 장면 구조로 �
 
 - 실제 Tab 키 조작·OS 움직임 감소·오프라인 폰트(v2와 동일).
 - 사진 취향: 13장 중 바꾸고 싶은 장면이 있으면 `data/scenes.js`의 `image`와 `assets/CREDITS.md`만 갱신하면 된다.
+
+---
+
+# v3.1 검증 (2026-09-13) — 장면 9 → 18 분할
+
+| 항목 | 결과 |
+|---|---|
+| `npm test` | 44 pass, contrast 15조합, lint-content 통과 |
+| 18장면 렌더 | ✅ 콘솔 오류 0. 본문 자식 수: hero 5, why-* 1, find-your-base 4, months-1~3 1, months-4 2, budget 2, work 3, rhythm 1, visa 2, checklist 1, local-1/2 1, my-bali-year 2 |
+| 5폭 overflow | ✅ 320·390·768·1024·1440 전부 `true`, 넘치는 요소 0 |
+| 시각 확인(500px) | ✅ Why Bali 4장면(사진 + 한 단락), 12 Months 분기 3카드, Rhythm 2블록, Checklist 6항목, Local 3카드 |
+| 결함 | months-1 하단 "null" 문자 — `body.append(cond ? el : null)`이 문자열 "null"을 넣음 → 조건부 append로 수정 |
+| 배포 | GitHub Pages(main 루트) 활성화: https://lucy1315.github.io/bali_nature/ · Artifact 미리보기 재발행 |

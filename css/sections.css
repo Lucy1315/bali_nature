@@ -40,6 +40,9 @@
 
 /* 12 Months — 6열 → 3열 → 1열 */
 .timeline { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--s-sm); }
+.timeline--quarter { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-lg); }
+.timeline--quarter .month { padding: 20px; gap: 10px; }
+.timeline--quarter .month__body { font-size: var(--fs-body-sm); }
 .month { display: grid; gap: 8px; align-content: start; padding: 16px; background: rgba(20,20,20,0.6); border: 1px solid var(--hairline); border-radius: var(--r-lg); }
 .month__num { font-family: var(--font-display); font-size: var(--fs-display-md); font-weight: 600; letter-spacing: -0.03em; line-height: 1; color: var(--ink-muted); }
 .month__title { font-size: var(--fs-body); font-weight: 600; line-height: 1.3; }
@@ -47,7 +50,9 @@
 .month__season { font-size: var(--fs-micro); color: var(--ink-muted); line-height: 1.4; }
 .month .rhythm { justify-self: start; }
 @media (max-width: 1023px) { .timeline { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (max-width: 767px) { .timeline { grid-template-columns: minmax(0, 1fr); } .month { grid-template-columns: 48px 1fr; } .month__num { grid-row: 1 / span 4; } .month > :not(.month__num) { grid-column: 2; } }
+/* 읽기 장면(Why Bali·Rhythm·Checklist)은 텍스트만 — lead를 넉넉히 */
+.scene--left .lead, .scene--right .lead { font-size: var(--fs-body-lg); line-height: 1.65; }
+@media (max-width: 767px) { .timeline, .timeline--quarter { grid-template-columns: minmax(0, 1fr); } .month { grid-template-columns: 48px 1fr; } .month__num { grid-row: 1 / span 4; } .month > :not(.month__num) { grid-column: 2; } }
 
 /* Budget — 2열 editorial calculator */
 .budget { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: var(--s-xxl); align-items: start; }

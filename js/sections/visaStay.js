@@ -28,15 +28,15 @@ function stayCard(s, copy) {
   );
 }
 
-export function render(root, data) {
+export function render(root, data, state, part) {
   const { copy, stay, checklist } = data;
   const body = root.querySelector('[data-section-body]');
+  if (part === 'info') {
+    body.append(el('p', { class: 'measure muted', text: copy.sectionIntros.visaStay }), el('div', { class: 'grid grid--2' }, stay.map((s) => stayCard(s, copy))));
+    return;
+  }
   body.append(
-    el('p', { class: 'measure muted', text: copy.sectionIntros.visaStay }),
-    el('div', { class: 'grid grid--2' }, stay.map((s) => stayCard(s, copy))),
     el('div', { class: 'checklist' },
-      el('p', { class: 'eyebrow', text: 'Checklist' }),
-      el('h3', { class: 'card-title', text: '장기 체류 준비 체크리스트' }),
       el('div', { class: 'progress' },
         el('span', { class: 'progress__num', dataset: { progress: '' }, 'aria-live': 'polite' }),
         el('div', { class: 'progress__bar' }, el('div', { class: 'progress__fill', dataset: { progressFill: '' } })),
@@ -53,7 +53,8 @@ export function render(root, data) {
   );
 }
 
-export function bind(root, store, data) {
+export function bind(root, store, data, part) {
+  if (part !== 'checklist') return;
   root.addEventListener('change', (e) => {
     const box = e.target.closest('[data-check]');
     if (box) store.dispatch({ type: ACTIONS.TOGGLE_CHECK, payload: box.dataset.check });

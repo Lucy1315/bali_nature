@@ -10,7 +10,7 @@ const ROWS = [
   ['lifestyle', 'Lifestyle', '#find-your-base'],
   ['monthly', 'Monthly', '#monthly-budget'],
   ['annual', 'Year', '#monthly-budget'],
-  ['progress', 'Checklist', '#visa-stay'],
+  ['progress', 'Checklist', '#checklist'],
 ];
 
 export function render(root, data) {

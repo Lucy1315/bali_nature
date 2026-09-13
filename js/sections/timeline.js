@@ -1,14 +1,14 @@
-// 12 Months — FR-013·FR-014, DESIGN §5.5
+// 12 Months — FR-013·FR-014. part: 월 번호 배열(장면당 3달)
 import { el } from '../lib/dom.js';
-
 const RHYTHM = { work: 'Work', explore: 'Explore', recharge: 'Recharge', community: 'Community' };
 
-export function render(root, data) {
+export function render(root, data, state, part) {
+  const nums = Array.isArray(part) ? part : data.months.map((m) => m.month);
+  const list = data.months.filter((m) => nums.includes(m.month));
   const body = root.querySelector('[data-section-body]');
   body.append(
-    el('p', { class: 'measure muted', text: data.copy.sectionIntros.twelveMonths }),
-    el('ol', { class: 'timeline' },
-      data.months.map((m) => el('li', { class: 'month', dataset: { month: String(m.month) } },
+    el('ol', { class: 'timeline timeline--quarter' },
+      list.map((m) => el('li', { class: 'month', dataset: { month: String(m.month) } },
         el('span', { class: 'month__num en', text: String(m.month).padStart(2, '0') }),
         el('span', { class: `rhythm rhythm--${m.rhythm}`, text: RHYTHM[m.rhythm] || m.rhythm }),
         el('h3', { class: 'month__title', text: m.title }),
@@ -16,7 +16,7 @@ export function render(root, data) {
         el('p', { class: 'month__season caption', text: `참고 · ${m.seasonNote}` }),
       )),
     ),
-    el('p', { class: 'source', text: `계절·날씨 메모는 일반적으로 알려진 경향을 완화해 적은 것이다 · 기준 ${data.months[0]?.asOf ?? '—'}` }),
   );
+  if (nums.includes(12)) body.append(el('p', { class: 'source', text: `계절·날씨 메모는 일반적으로 알려진 경향을 완화해 적은 것이다 · 기준 ${data.months[0]?.asOf ?? '—'}` }));
 }
 export function bind() {}
