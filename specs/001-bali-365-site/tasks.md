@@ -367,3 +367,24 @@ US5·US6은 콘텐츠 보강이며 완료 조건 8(비자 안내)은 US3에서 �
 - 브라우저 모달(`alert/confirm`)을 쓰지 않는다(contracts/dom-contract.md).
 - 완료 표시(`[x]`)는 "확인" 항목을 실제로 수행한 뒤에만 한다(헌장 VIII).
 - 커밋은 Phase 또는 스토리 단위로 묶는다.
+
+---
+
+## Phase 10: v3 사진 중심 개정 (2026-09-13, 사용자 방향 전환)
+
+**Purpose**: 노션 실습(korea-nature) 방식 — Framer DESIGN.md 원본 + 실제 사진 전체 화면 장면 — 으로 재구성한다. spec.md FR-045~050.
+
+- [X] T051 `DESIGN.md`를 Framer DESIGN.md 원본으로 교체하고 이전 안을 `docs/design-variants/tropical-editorial.md`로 보관
+  - 요구: FR-050, 헌장 I(1.1.0) · 디자인: 전체 · 확인: `diff ../korea-nature/DESIGN.md DESIGN.md` 없음
+- [X] T052 Wikimedia Commons에서 장면 13장 선정·다운로드·WebP 재인코딩, `assets/CREDITS.md` 기록, 이전 Hero JPG 제거
+  - 요구: FR-045·046·047 · 디자인: — · 확인: `ls assets/images | wc -l` = 26, CREDITS 표 13행, 외부 이미지 URL 0
+- [X] T053 `data/scenes.js`(장면 사진·제목·크레딧) · `data/regions.js` photo 필드 · `js/sections/scene.js` 렌더
+  - 요구: FR-045·046·048 · 디자인: — · 확인: 9장면 렌더, 지역 카드 4장 사진, alt 텍스트 존재
+- [X] T054 `css/tokens.css` Framer 토큰 + `base/components/sections.css` 다크 캔버스·유리 패널·장면 레이아웃 재작성
+  - 요구: FR-050·SC-012 · 디자인: colors·typography·rounded·spacing·components · 확인: `node scripts/contrast.mjs` 15조합 통과
+- [X] T055 `js/journey.js`: IO 기반 텍스트 등장 + GSAP(로컬 벤더링) 사진 확대·시차, reduced-motion·JS 없음 폴백
+  - 요구: FR-049, 헌장 II 1.1.0 · 디자인: — · 확인: 정지 상태에서 Hero 보임, 실제 스크롤로 `.is-visible` 전환 확인
+- [X] T056 반응형·overflow 재검증(320~1440) 및 발견 결함 수정(패널 자식 폭, 내비 리스트, 예산 숫자 크기)
+  - 요구: SC-005 · 디자인: — · 확인: `scripts/overflow-check.html` 5폭 `true`
+- [X] T057 검증 기록 v3(`verification.md`) · Artifact 미리보기 재발행 · GitHub 푸시
+  - 요구: 헌장 VIII · 확인: 아래 verification.md "v3" 절

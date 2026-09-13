@@ -72,3 +72,42 @@ High 0건 남음. 수정 후 `npm test` 재실행 통과, S-01~S-16 재확인 �
 - S-10 실제 Tab 키 조작, S-11 OS 움직임 감소, S-17 오프라인 — 이 환경에서 수행하지 못한 세 가지.
 - 클립보드 복사의 정상 경로(권한 있는 활성 탭)는 폴백만 확인했다.
 - 후속 과제(research.md): Playwright 자동화, 탭 간 동기화, 콘텐츠 출처 갱신 절차.
+
+---
+
+# v3 검증 (2026-09-13 저녁) — 사진 중심 장면 구조
+
+**변경 배경**: 사용자가 v2 결과("Tropical Editorial")를 보고 korea-nature(한국의 결)처럼 사진으로 채우는 방향을 지시했다.
+Framer DESIGN.md 원본 + Wikimedia Commons CC 사진 13장 + 장면 구조로 재구성했다(plan.md v3 절).
+
+## 자동 검증
+
+| ID | 결과 |
+|---|---|
+| A-01 `node --test` | 44 pass / 0 fail (로직 모듈은 변경 없음) |
+| A-02 `contrast.mjs` | 다크 팔레트 15조합 전부 통과 (ink/canvas 19.9, ink-muted/surface-2 5.98, accent/surface-2 5.68, error/surface-1 5.98, border-input/surface-1 3.46) |
+| A-03 `lint-content.mjs` | 통과 (문자열 282개; regions에 photo 필드 추가) |
+
+## 브라우저 (Chrome, 500px 창 → 1512px 창)
+
+| 항목 | 결과 |
+|---|---|
+| 9개 장면 사진 로드 | ✅ Hero `hero-uluwatu.webp` 1920px complete, 나머지 lazy 로드 |
+| 지역 카드 사진 4장 | ✅ 960px WebP, SELECTED 상태·강조·후순위 정상 |
+| 5폭 overflow | ✅ 320·390·768·1024·1440 모두 `scrollWidth === clientWidth` (수정 2건: 모바일 패널 `align-items:flex-start`로 자식이 내용 폭까지 늘어남 → `width:100%`; 내비 리스트 `min-width:0`) |
+| 정지 상태 가시성 | ✅ Hero는 항상 보임(CSS rise). 뷰포트 밖 장면은 실제 스크롤 시 `.is-visible`로 등장. 비활성 탭에서 GSAP rAF가 멈추는 것을 확인해 텍스트 등장을 GSAP → IO+CSS로 바꿈 |
+| 기능 회귀 (S-01·04·07·08) | ✅ 지역 선택 → 요약 "Ubud", 예산 19,600,000 IDR·KRW 병기, 체크 1/6, 새로고침 복원 |
+| 내비 현재 섹션 | ✅ 실제 스크롤에서 갱신 |
+| 데스크톱 1512px 시각 | ✅ Hero 가운데 패널, Why Bali 2×2, 지역 카드 4열, 타임라인 6열, 예산 2열, Work&Live 5열+표, Visa 2열, Local Life 3열, 요약 720px |
+| 발견·수정 | 예산 결과 숫자(62px)가 우측 열에서 두 줄로 꺾임 → `--fs-number` 48px |
+
+## 문서·규칙 대응
+
+- 헌장 1.1.0: 원칙 I(공개 DESIGN.md 무수정), II(로컬 벤더링 라이브러리), V(사진 출처·라이선스) 추가.
+- spec.md v3: FR-045~050, SC-011·012. plan.md v3 절, tasks.md Phase 10.
+- 미리보기(Artifact)는 CSP 때문에 Pretendard 대신 Noto Sans KR을 쓴다. 저장소 코드는 Pretendard.
+
+## 남은 확인 (사용자)
+
+- 실제 Tab 키 조작·OS 움직임 감소·오프라인 폰트(v2와 동일).
+- 사진 취향: 13장 중 바꾸고 싶은 장면이 있으면 `data/scenes.js`의 `image`와 `assets/CREDITS.md`만 갱신하면 된다.

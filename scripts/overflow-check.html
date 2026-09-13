@@ -20,7 +20,7 @@ for (const w of widths){
   const i=document.createElement('iframe'); i.width=w; i.src='../index.html?w='+w; f.append(i); row.append(f);
   i.addEventListener('load',()=>{ setTimeout(()=>{
     const d=i.contentDocument.documentElement;
-    const wide=[...i.contentDocument.querySelectorAll('body *')].filter(el=>el.getBoundingClientRect().right>d.clientWidth+1 && getComputedStyle(el).overflowX!=='auto' && !el.closest('.table-scroll, .site-nav__list')).slice(0,5).map(el=>el.tagName+'.'+(el.className||'').toString().split(' ')[0]);
+    const wide=[...i.contentDocument.querySelectorAll('body *')].filter(el=>el.getBoundingClientRect().right>d.clientWidth+1 && getComputedStyle(el).overflowX!=='auto' && !el.closest('.table-scroll, .site-nav__list, .scene__bg')).slice(0,5).map(el=>el.tagName+'.'+(el.className||'').toString().split(' ')[0]);
     results[w]={scrollWidth:d.scrollWidth, clientWidth:d.clientWidth, ok:d.scrollWidth<=d.clientWidth, wide};
     out.textContent=JSON.stringify(results,null,1); window.__results=results;
   },800); });

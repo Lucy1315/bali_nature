@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 
 const css = readFileSync(new URL('../css/tokens.css', import.meta.url), 'utf8');
 const tokens = {};
-for (const m of css.matchAll(/--([a-z-]+):\s*(#[0-9A-Fa-f]{6})/g)) tokens[m[1]] = m[2];
+for (const m of css.matchAll(/--([a-z0-9-]+):\s*(#[0-9A-Fa-f]{6})/g)) tokens[m[1]] = m[2];
 
 function lin(c) { c /= 255; return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; }
 function lum(hex) {
@@ -18,20 +18,20 @@ export function contrast(a, b) {
 // [전경, 배경, 최소 비율, 용도]
 const pairs = [
   ['ink', 'canvas', 4.5, '본문'],
-  ['ink', 'surface', 4.5, '카드 본문'],
+  ['ink', 'surface-1', 4.5, '카드 본문'],
+  ['ink', 'surface-2', 4.5, '강조 카드 본문'],
   ['ink-muted', 'canvas', 4.5, '보조 텍스트'],
-  ['ink-muted', 'surface', 4.5, '카드 보조 텍스트'],
-  ['palm', 'canvas', 4.5, '강조 텍스트·현재 내비'],
-  ['palm', 'surface', 4.5, '카드 강조 텍스트'],
-  ['white', 'palm', 4.5, '선택된 pill·Primary 버튼'],
-  ['ink', 'ocean', 4.5, 'Ocean 라벨 위 텍스트'],
-  ['ocean-ink', 'canvas', 4.5, 'Ocean 계열 텍스트'],
-  ['terracotta-ink', 'canvas', 4.5, '오류 문구'],
-  ['terracotta-ink', 'surface', 4.5, '카드 안 오류 문구'],
-  ['muted-raw', 'canvas', 3.0, '입력·체크박스 테두리(UI 경계)'],
-  ['muted-raw', 'surface', 3.0, '카드 안 입력 테두리'],
-  ['palm', 'canvas', 3.0, '포커스 링'],
-  ['muted-raw', 'canvas', 3.0, '큰 텍스트(24px+) 보조색'],
+  ['ink-muted', 'surface-1', 4.5, '카드 보조 텍스트'],
+  ['ink-muted', 'surface-2', 4.5, '강조 카드 보조 텍스트'],
+  ['accent', 'canvas', 4.5, 'eyebrow·링크'],
+  ['accent', 'surface-1', 4.5, '카드 안 링크'],
+  ['accent', 'surface-2', 4.5, '선택 열 헤더'],
+  ['on-primary', 'primary', 4.5, '흰 알약 버튼 텍스트'],
+  ['error', 'surface-1', 4.5, '오류 문구'],
+  ['error', 'canvas', 4.5, '오류 문구(캔버스)'],
+  ['border-input', 'surface-1', 3.0, '입력·체크박스 경계'],
+  ['border-input', 'canvas', 3.0, '캔버스 위 입력 경계'],
+  ['accent', 'canvas', 3.0, '포커스 링'],
 ];
 
 let failed = 0;

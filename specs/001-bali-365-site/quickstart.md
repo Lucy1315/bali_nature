@@ -42,10 +42,10 @@ npm run dev       # python3 -m http.server 3780  →  http://localhost:3780
 | S-13 저장 차단 | 콘솔에서 `Object.defineProperty(window,'localStorage',{get(){throw new Error('blocked')}})` 후 새로고침 | 오류 없이 동작, "저장되지 않는다" 안내 1회 | FR-004, 헌장 VII |
 | S-14 손상 데이터 | 콘솔 `localStorage.setItem('bali365:plan','{"version":1,"area":"mars","filters":"x"}')` 후 새로고침 | 화면 정상, area·filters 초기값, 다른 필드 유지 | Edge Case, 헌장 VII |
 | S-15 초기화·복사 | My Bali Year "처음부터 다시"(2단계 확인) → "계획 복사" | 전 섹션 초기 상태. 복사 시 클립보드에 5값 텍스트, 안내 표시 | FR-041·042 |
-| S-16 시각 대조 | DESIGN §3·§5 값과 실제 렌더 비교(Hero 84px/300, 카드 18px 모서리, 섹션 간격 128px, pill 선택 Palm/white) | 값 일치. Hero 텍스트 실제 렌더 색 샘플링 대비 ≥ 4.5 | 헌장 I·IV |
+| S-16 시각 대조 | DESIGN.md(Framer) 토큰과 실제 렌더 비교(canvas #090909, 알약 버튼 흰/검정, 카드 surface-1 20px, eyebrow accent #0099ff, 유리 패널) | 값 일치. 패널 위 텍스트 대비 ≥ 4.5 (`contrast.mjs`) | 헌장 I·IV |
 | S-17 오프라인 폰트 | 네트워크 차단 후 새로고침 | 시스템 서체로 대체, 레이아웃 유지, 기능 정상 | 헌장 II |
 
 ## 완료 판정
 
-A-01~03 전부 통과 + S-01~17 전부 기대 결과 일치. 하나라도 어긋나면 "완료"로 보고하지 않고 어긋난
+A-01~03 전부 통과 + S-01~17 전부 기대 결과 일치 + 9개 장면 사진이 모두 표시되고 `assets/CREDITS.md`에 기록됨(v3). 하나라도 어긋나면 "완료"로 보고하지 않고 어긋난
 시나리오 ID와 관찰 결과를 그대로 기록한다(헌장 VIII).

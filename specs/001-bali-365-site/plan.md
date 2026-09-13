@@ -163,3 +163,68 @@ bali_365/
 ## Complexity Tracking
 
 > Constitution Check 위반 없음. 기록할 항목 없음.
+
+---
+
+## v3 개정 (2026-09-13): 사진 중심 장면 구조 · Framer DESIGN.md
+
+노션 실습 "GitHub Spec Kit + DESIGN.md"(한국의 결, korea-nature)의 방식을 BALI 365에 적용했다. spec.md FR-045~050.
+
+### 디자인 기준
+
+- `DESIGN.md` = VoltAgent awesome-design-md의 **Framer DESIGN.md 원본**(korea-nature와 동일 파일). 수정하지 않는다.
+- 이전 안(Tropical Editorial)은 `docs/design-variants/tropical-editorial.md`로 보관. Spec은 그대로 두고 DESIGN.md만
+  바꿔 결과를 비교하는 것이 실습 §21의 취지이다.
+- DESIGN.md에 없는 발리 전용 규칙은 여기(plan)에 둔다:
+
+| 항목 | 값 | 근거 |
+|---|---|---|
+| 서체 대체 | GT Walsheim → Space Grotesk 500/600(디스플레이), Inter(본문), 한글 Pretendard(로컬 CDN, 미리보기는 Noto Sans KR) | DESIGN "Note on Font Substitutes" |
+| 장면 사진 스크림 | 120° 선형(0.80→0.48→0.16→0.06), 오른쪽 정렬은 240°, 가운데/도구 패널은 180°(0.30→0.55→0.80) | korea-nature `.scene__scrim` |
+| 유리 패널 | `rgba(9,9,9,.58)` + blur 10px + 흰 10% 테두리, 모서리 `rounded.xl` 20px, 패딩 `spacing.xl` 30px | DESIGN elevation level 2 응용 |
+| 패널 폭 | 읽기 `clamp(36rem, 42vw, 48rem)` / 도구 1120px | korea-nature FR-007 |
+| 텍스트 대비 | 패널 배경 기준 ink/ink-muted/accent 조합 계산(`scripts/contrast.mjs` 15조합) | 헌장 IV, SC-012 |
+| 입력·체크 경계 | `--border-input #6b6b6b`(surface-1 위 3.46:1) | WCAG 1.4.11 |
+| 오류 색 | `colors.gradient-coral #ff5577`(surface-1 위 5.98:1) — semantic 전용 | DESIGN Semantic |
+| 본문 크기 | DESIGN body 15px → 한글 가독을 위해 16px/1.6 | 한글 |
+
+### 장면 구조 (korea-nature 구조를 9개 섹션에 적용)
+
+```text
+section.scene[.scene--left|--right|--center|--wide]
+├── .scene__bg (position: sticky; top: 0; height: 100svh; overflow: hidden)
+│   ├── picture > source(≤767px: *-960.webp) + img(*.webp, 1920px, lazy)   ← data/scenes.js
+│   ├── .scene__scrim
+│   └── .scene__credit  "Photo: 작가 · 라이선스" (Commons 링크)
+└── .scene__content (margin-top: -100svh; min-height: 100svh; flex; align-items: center)
+    └── .scene__panel[.scene__panel--wide]
+        ├── .scene__head  eyebrow · h2 · tagline           ← data/scenes.js
+        └── [data-section-body]                             ← js/sections/*.js (v2와 동일 모듈)
+```
+
+- 섹션 본문이 뷰포트보다 길면(예산·타임라인·체크리스트) sticky 배경이 머무는 동안 패널이 그 위로 흐른다. pin·
+  scroll-snap·휠 가로채기는 쓰지 않는다(FR-049).
+- 모션(`js/journey.js`): 텍스트 등장은 IntersectionObserver가 `.is-visible`을 붙이고 CSS 전환이 처리한다(rAF
+  비의존, JS가 없거나 reduced-motion이면 항상 보임). 사진 확대(1.16→1.02)·시차(±3%)만 GSAP ScrollTrigger scrub.
+  GSAP은 `js/vendor/`에 로컬 벤더링(3.12.5, 헌장 II 1.1.0).
+- 초기 뷰포트 안의 장면(Hero)은 숨기지 않는다. Hero 텍스트는 CSS `rise` 애니메이션(끝 상태 항상 보임).
+
+### 사진 파이프라인
+
+Wikimedia Commons API로 후보 검색(가로형·1600px 이상·CC BY/BY-SA/CC0/PD만) → 콘택트 시트로 선정 → `Special:FilePath`로
+원본 다운로드 → Pillow로 1920px(q78)·960px(q74) WebP 재인코딩 → `assets/CREDITS.md` 표 자동 생성. 13장 4.2MB. 상세는
+`assets/CREDITS.md`.
+
+### 구조 변경 요약
+
+| 파일 | 변경 |
+|---|---|
+| `DESIGN.md` | Framer 원본으로 교체 (이전 안은 docs/design-variants/) |
+| `css/tokens.css` | Framer colors/typography/rounded/spacing 토큰 + 발리 전용 값 |
+| `css/base.css`·`components.css`·`sections.css` | 다크 캔버스, 알약 버튼, 유리 패널, 장면 레이아웃 |
+| `index.html` | 9개 `section.scene` 골격 + `js/vendor/gsap` |
+| `data/scenes.js` (신규) | 장면별 사진·alt·작가·라이선스·eyebrow·제목·태그라인 |
+| `data/regions.js` | `photo {image, alt, artist, license}` 추가 |
+| `js/sections/scene.js` (신규) · `js/journey.js` (신규) · `hero.js`·`areaExplorer.js` | 장면 렌더, 모션, 사진 카드 |
+| `scripts/contrast.mjs` | 다크 팔레트 15조합으로 교체 |
+| `scripts/overflow-check.html` | sticky 배경 제외 |

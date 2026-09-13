@@ -4,6 +4,7 @@
 export const regions = [
   {
     id: 'canggu',
+    photo: { image: 'region-canggu', alt: '짱구 해변, 검은 바위 위의 작은 사원과 부서지는 파도', artist: 'Mx. Granger', license: 'CC0' },
     name: 'Canggu',
     nameKo: '짱구',
     vibe: '서핑과 코워킹이 같은 거리에 있는, 발리에서 가장 분주한 노마드 동네이다.',
@@ -24,6 +25,7 @@ export const regions = [
   },
   {
     id: 'ubud',
+    photo: { image: 'region-ubud', alt: '우붓의 초록 논과 그 너머 야자수 숲', artist: 'Jakub Hałun', license: 'CC BY-SA 4.0' },
     name: 'Ubud',
     nameKo: '우붓',
     vibe: '논과 숲 사이에서 요가와 작업이 하루의 리듬을 만드는 내륙 마을이다.',
@@ -44,6 +46,7 @@ export const regions = [
   },
   {
     id: 'sanur',
+    photo: { image: 'region-sanur', alt: '사누르 해변의 아침, 전통 배 주쿵이 떠 있는 잔잔한 바다', artist: 'Danangtrihartanto', license: 'CC BY-SA 4.0' },
     name: 'Sanur',
     nameKo: '사누르',
     vibe: '잔잔한 바다와 긴 해변 산책로가 있는, 조용하고 생활 편의가 좋은 동네이다.',
@@ -64,6 +67,7 @@ export const regions = [
   },
   {
     id: 'uluwatu',
+    photo: { image: 'region-uluwatu', alt: '울루와뚜 절벽 위 사원과 짙푸른 인도양', artist: 'Tiya20', license: 'CC BY-SA 4.0' },
     name: 'Uluwatu',
     nameKo: '울루와뚜',
     vibe: '절벽 위 바다와 서핑 포인트가 이어지는, 외지고 탁 트인 남쪽 반도이다.',

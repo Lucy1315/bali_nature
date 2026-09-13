@@ -9,6 +9,9 @@ import { workLive } from '../data/workLive.js';
 import { stay } from '../data/stay.js';
 import { checklist } from '../data/checklist.js';
 import { localLife } from '../data/localLife.js';
+import { scenes } from '../data/scenes.js';
+import { renderScene } from './sections/scene.js';
+import * as journey from './journey.js';
 
 import * as nav from './sections/nav.js';
 import * as hero from './sections/hero.js';
@@ -40,6 +43,10 @@ function boot() {
   const store = createStore(loaded.state, reducer, data);
   store.dispatch({ type: ACTIONS.HYDRATE, payload: loaded.state });
 
+  for (const scene of scenes) {
+    const root = document.getElementById(scene.id);
+    if (root) renderScene(root, scene);
+  }
   for (const [id, mod] of sections) {
     const root = document.getElementById(id);
     if (!root) continue;
@@ -51,6 +58,7 @@ function boot() {
     mod.bind(root, store, data);
   }
   nav.init(document.querySelector('.site-nav'));
+  journey.init();
 
   store.subscribe((state) => {
     const result = storage.save(state);

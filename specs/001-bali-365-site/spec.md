@@ -4,7 +4,7 @@
 
 **Created**: 2026-09-13
 
-**Status**: Draft (v2 — 노션 원문 반영)
+**Status**: Draft (v3 — 사진 중심 장면 구조로 개정)
 
 **Input**: User description: "“BALI 365 — 디지털노마드로 발리에서 1년 살기”라는 인터랙티브 싱글페이지 웹사이트를 만든다. 사용자는 한국에서 일하면서 해외 원격근무를 해보고 싶거나 발리에서 수개월~1년 살아보기를 고민하는 사람이다. 단순 여행 정보 사이트가 아니라 (1) 자신에게 맞는 지역 탐색, (2) 예상 생활비 계산, (3) 원격근무 환경 비교, (4) 장기 체류 시 확인 사항 파악, (5) 자신만의 ‘Bali Year Plan’ 작성이 가능해야 한다. 섹션: Hero → Why Bali(Work·Life·Nature·Community) → Find Your Base(Canggu·Ubud·Sanur·Uluwatu 카드, 6개 정보 항목, Work·Nature·Beach·Quiet·Community 필터) → 12 Months in Bali(Work·Explore·Recharge·Community 관점의 1년 리듬, 계절·날씨는 단정하지 않고 교체 가능한 구조) → Monthly Budget(Housing·Food·Coworking/Cafe·Transport·Wellness & Activities·Insurance·Other 7항목, Monthly/Annual 자동 계산, IDR 기본, 환율 API 없이 사용자가 환율 직접 입력) → Work & Live(Internet·Coworking·Cafe·Timezone·Work Routine, '실제로 일하며 살 때 중요한 기준') → Visa & Stay(법률 자문처럼 표현하지 않음, 공식 이민청 확인 안내, Last Updated 표시 구조, Remote Worker 비자 영역 별도) → Local Life(Local culture·Temple etiquette·Transport·Health·Community·Waste & Sustainability 카드, '현지에서 함께 살아가는 사람' 관점) → My Bali Year(Preferred Area·Lifestyle·Monthly Budget·Annual Budget·Checklist Progress 한 카드, localStorage 저장, 새로고침 후 유지). 기술 범위: Single Page, HTML/CSS/JavaScript, Backend·Login·Database 없음, localStorage, 외부 API 의존 최소화, Desktop/Tablet/Mobile 반응형. 완료 조건 8개: 지역 선택, 라이프스타일 기준 지역 비교, 월 생활비 입력 시 연간 예산 계산, 체크리스트 상태 저장, 새로고침 후 선택 유지, 모바일 가로 스크롤 없음, My Bali Year에서 선택 결과 확인, 비자 정보에 공식 출처 확인 안내 포함."
 
@@ -12,6 +12,13 @@
 > 같은 날 사용자가 공유한 노션 원문(BALI 365 — 디지털노마드로 발리에서 1년 살기)으로 잘린 부분을 확인해
 > v2로 다시 썼다. v1의 명확화 답변(Q1 섹션 순서, Q2 항목별 예산 입력, Q3 지역별 원격근무 환경)은 원문과
 > 충돌하지 않아 유지하되, 섹션 이름·순서·예산 항목·통화는 원문을 따른다.
+>
+> **v3(2026-09-13)**: 사용자가 v2 구현("Tropical Editorial")을 보고 "한국의 결(korea-nature)처럼 사진으로
+> 채우고 싶다"고 방향을 바꿨다. 노션 실습 "GitHub Spec Kit + DESIGN.md"의 방식대로 **공개된 Framer
+> DESIGN.md를 원본 그대로 디자인 기준으로 삼고**, 발리 디지털노마드 생활을 보여주는 실제 사진을 재사용
+> 조건이 확인된 출처에서 내려받아 모든 섹션을 전체 화면 사진 장면으로 구성한다. 기능 요구(FR-001~044)는
+> 그대로이며, 아래 "v3 추가 요구"가 더해진다. 이전 시안 문서는 `docs/design-variants/tropical-editorial.md`로
+> 보관한다.
 
 ## User Scenarios & Testing *(mandatory)*
 
@@ -333,6 +340,24 @@ Checklist Progress 다섯 값을 하나의 요약 카드로 확인한다. 다른
 - **FR-042**: 요약을 텍스트로 복사할 수 있어야 하며, 복사가 불가능한 환경에서는 선택 가능한 텍스트로 대신
   보여줘야 한다.
 
+**v3 추가 요구 — 사진 장면(Photo Scenes)**
+
+- **FR-045**: 9개 섹션 각각은 뷰포트를 가득 채우는 실제 사진 한 장을 배경으로 갖고, 그 위에 읽기 좋은 대비를
+  가진 패널 안에 제목·설명·상호작용 요소를 놓아야 한다. 사진은 발리에서 디지털노마드로 살 때의 장면(절벽·논·
+  해변·일출·시장·노트북 작업·공항·공연·석양)이어야 한다.
+- **FR-046**: Find Your Base의 네 지역 카드는 각 지역의 실제 사진을 포함해야 한다.
+- **FR-047**: 모든 사진은 재사용 조건이 확인된 출처(Wikimedia Commons 등)에서 직접 내려받아 프로젝트 안에
+  두고, 어떤 이미지도 외부 URL로 hotlink하지 않아야 한다. `assets/CREDITS.md`에 사진마다 원본·작가·라이선스·
+  확인 날짜를 기록하고, 각 장면에 작가·라이선스 캡션을 표시해야 한다.
+- **FR-048**: 모든 사진은 장면을 구체적으로 설명하는 한국어 대체 텍스트를 갖거나(정보 사진), 장식 배경이면
+  보조 기술에서 숨겨야 한다.
+- **FR-049**: 스크롤 시 사진이 천천히 확대·이동하고 패널 텍스트가 순차 등장하는 부드러운 장면 전환을 제공하되,
+  섹션 pin·scroll-snap·휠 가로채기·강제 스크롤 이동은 쓰지 않아야 한다. 정지 상태(로드 직후, JS 없음,
+  움직임 감소 설정)에서도 모든 콘텐츠가 보여야 한다.
+- **FR-050**: 시각 기준은 프로젝트 루트 `DESIGN.md`(VoltAgent awesome-design-md의 Framer DESIGN.md 원본,
+  수정하지 않음)이며, 색·타이포·간격·모서리·컴포넌트는 그 토큰을 따른다. 발리 전용 규칙(사진 스크림·유리
+  패널 등)은 DESIGN.md를 고치지 않고 plan.md에 둔다.
+
 **콘텐츠 신뢰성**
 
 - **FR-043**: 지역 카드의 등급, 참고 생활비, Work & Live 비교 값처럼 사실에 근거한 수치·평가에는 출처 또는
@@ -385,6 +410,10 @@ Checklist Progress 다섯 값을 하나의 요약 카드로 확인한다. 다른
   키보드만으로 조작할 수 있다.
 - **SC-010**: 수치·등급이 있는 콘텐츠의 100%에 출처 또는 "편집자 평가(기준 시점)" 또는 "확인불가" 표기가
   있다.
+- **SC-011** (v3): 9개 장면 전부에 사진이 있고, 사진 13장 전부가 CREDITS.md에 출처·라이선스와 함께 기록되며,
+  외부 이미지 URL이 0건이다.
+- **SC-012** (v3): 모든 장면의 패널 텍스트가 배경 사진 위에서 4.5:1 이상의 대비를 갖는다(유리 패널 배경 기준
+  계산).
 
 ## Assumptions
 
@@ -408,8 +437,8 @@ Checklist Progress 다섯 값을 하나의 요약 카드로 확인한다. 다른
 - **저장 범위**: 사용자 선택은 사용자의 브라우저에만 저장되며 다른 기기·브라우저와 동기화하지 않는다.
 - **접근성 기준**: WCAG 2.1 AA(대비 4.5:1, 키보드 조작)를 기본으로 한다. 이 워크스페이스의 앞선 프로젝트
   (QANOW)에서 대비 미달을 자동 검사로만 잡은 경험이 있어 계산으로 검증한다.
-- **시각 디자인**: 프로젝트 루트의 DESIGN.md(Tropical Editorial + Independent Travel Magazine + Modern
-  Digital Nomad Dashboard)가 단일 출처이며 본 명세는 시각 규칙을 정하지 않는다.
+- **시각 디자인**: 프로젝트 루트의 DESIGN.md(Framer DESIGN.md 원본, v3)가 단일 출처이며 본 명세는 시각 규칙을
+  정하지 않는다. v2까지 쓰던 Tropical Editorial 안은 `docs/design-variants/`에 보관한다.
 - **범위 제외**: 회원·로그인, 서버 저장, 공유 링크 생성, 실시간 환율·날씨, 지도, 숙소·항공 예약 연동,
   다국어, 탭 간 실시간 동기화.
 

@@ -1,68 +1,58 @@
-/* BALI 365 디자인 토큰 — 단일 출처: /DESIGN.md (절 번호를 주석에 병기) */
+/* BALI 365 디자인 토큰 — 단일 출처: /DESIGN.md (Framer DESIGN.md, 원본 수정 없음). 값 옆에 DESIGN 키를 병기한다. */
 :root {
-  /* §2.1 색 */
-  --canvas: #F5F1E8;          /* Warm sand — 페이지 배경 */
-  --surface: #FFFCF5;         /* 카드·입력·요약 카드 배경 */
-  --ink: #29302B;             /* 본문·제목 */
-  --ink-muted: #63655E;       /* 보조 텍스트 (AA 보정, §3.2) */
-  --muted-raw: #74756F;       /* 24px 이상 큰 텍스트·입력 테두리·비활성 아이콘 */
-  --palm: #486554;            /* 선택·현재·진행 */
-  --ocean: #7FAFB3;           /* 비텍스트 강조 */
-  --ocean-ink: #356C72;       /* Ocean 계열 텍스트 */
-  --terracotta: #C8795B;      /* 비텍스트 강조 */
-  --terracotta-ink: #9E5A40;  /* 오류·주의 텍스트 */
-  --hairline: #DED8CC;        /* 장식 구분선·카드 테두리 */
-  --white: #FFFFFF;
+  /* colors: */
+  --primary: #ffffff;        /* colors.primary — 흰 알약 CTA, 디스플레이 텍스트 */
+  --on-primary: #000000;     /* colors.on-primary */
+  --accent: #0099ff;         /* colors.accent-blue — 링크·포커스·선택·eyebrow */
+  --ink: #ffffff;            /* colors.ink */
+  --ink-muted: #999999;      /* colors.ink-muted */
+  --canvas: #090909;         /* colors.canvas */
+  --surface-1: #141414;      /* colors.surface-1 — 카드·보조 버튼·입력 */
+  --surface-2: #1c1c1c;      /* colors.surface-2 — 선택된 탭·강조 카드 */
+  --hairline: #262626;       /* colors.hairline */
+  --hairline-soft: #1a1a1a;  /* colors.hairline-soft */
+  --border-input: #6b6b6b;   /* 입력·체크박스 경계(UI 3:1) — surface-1 위 3.5:1 (DESIGN에 없는 값, plan §디자인 연결표) */
+  --error: #ff5577;          /* colors.gradient-coral — 오류 문구 전용 (semantic) */
+  --success: #22c55e;        /* colors.semantic-success — 체크 완료 표시 */
 
-  /* §3.1 서체 */
-  --font-ko: "Pretendard Variable", Pretendard, system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-  --font-en: Inter, "Pretendard Variable", Pretendard, system-ui, -apple-system, sans-serif;
+  /* 사진 위 유리 패널 (DESIGN elevation level 2 light-edge 응용) */
+  --glass: rgba(9, 9, 9, 0.58);
+  --glass-edge: rgba(255, 255, 255, 0.10);
+  --glass-blur: 10px;
 
-  /* §3.1 타입 스케일 — clamp(모바일, 유동, 데스크톱). Tablet은 중간값 */
-  --fs-hero: clamp(3rem, 1.5rem + 5vw, 5.25rem);           /* 48 → 84 */
-  --fs-hero-sub: clamp(1.25rem, 1rem + 1vw, 1.75rem);       /* 20 → 28 */
-  --fs-section: clamp(2.25rem, 1.5rem + 2.5vw, 3.25rem);    /* 36 → 52 */
-  --fs-eyebrow: 0.75rem;                                    /* 12 */
-  --fs-card-title: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);  /* 20 → 24 */
-  --fs-body: clamp(1rem, 0.95rem + 0.2vw, 1.0625rem);       /* 16 → 17 */
-  --fs-caption: clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);/* 12 → 13 */
-  --fs-budget: clamp(2.5rem, 1.75rem + 2.5vw, 3.5rem);      /* 40 → 56 */
-  --fs-summary: clamp(1.5rem, 1.25rem + 1vw, 2rem);         /* 24 → 32 */
-  --fs-month: 2rem;                                         /* 32 */
+  /* typography: — GT Walsheim 대체(DESIGN "Note on Font Substitutes"): Space Grotesk 500/600, 본문 Inter, 한글 Pretendard */
+  --font-display: "Space Grotesk", "Pretendard Variable", Pretendard, system-ui, -apple-system, sans-serif;
+  --font-body: Inter, "Inter Variable", "Pretendard Variable", Pretendard, system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --font-ko: "Pretendard Variable", Pretendard, Inter, system-ui, -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
 
-  --lh-tight: 1.0;
-  --lh-heading: 1.1;
-  --lh-body: 1.7;
-  --lh-caption: 1.5;
-  --ls-eyebrow: 0.12em;
-  --ls-display: -0.02em;
+  --fs-display-xxl: clamp(3.25rem, 2rem + 7vw, 6.875rem);   /* typography.display-xxl 110px */
+  --fs-display-lg: clamp(2.25rem, 1.5rem + 3vw, 3.875rem);   /* typography.display-lg 62px */
+  --fs-display-md: 2rem;                                     /* typography.display-md 32px */
+  --fs-headline: 1.375rem;                                   /* typography.headline 22px */
+  --fs-subhead: clamp(1.125rem, 1rem + 0.6vw, 1.5rem);       /* typography.subhead 24px */
+  --fs-body-lg: 1.125rem;                                    /* typography.body-lg 18px */
+  --fs-body: 1rem;                                           /* typography.body 15px → 한글 가독을 위해 16px */
+  --fs-body-sm: 0.875rem;                                    /* typography.body-sm 14px */
+  --fs-caption: 0.8125rem;                                   /* typography.caption 13px */
+  --fs-micro: 0.75rem;                                       /* typography.micro 12px */
+  --fs-button: 0.875rem;                                     /* typography.button 14px */
+  --fs-number: clamp(2rem, 1.25rem + 2vw, 3rem);              /* 예산 큰 숫자 (display-lg보다 한 단계 작게, 우측 열 폭에 맞춤) */
 
-  /* §4 레이아웃 */
-  --container-max: 1200px;
-  --container-pad: 24px;
-  --container-pad-mobile: 16px;
-  --grid-gutter: 24px;
-  --space-section: 128px;      /* Desktop (96~140) */
-  --space-section-tablet: 96px;
-  --space-section-mobile: 72px;
-  --space-title-gap: 40px;
-  --space-title-gap-mobile: 24px;
-  --gap-card: 24px;            /* 20~28 */
-  --gap-card-mobile: 16px;
-  --measure: 68ch;
+  /* rounded: */
+  --r-xs: 4px; --r-sm: 6px; --r-md: 10px; --r-lg: 15px; --r-xl: 20px; --r-xxl: 30px; --r-pill: 100px; --r-full: 9999px;
 
-  /* §6 컴포넌트 */
-  --radius-card: 18px;         /* 16~20 */
-  --radius-summary: 20px;
-  --radius-btn: 10px;
-  --radius-field: 8px;
-  --btn-height: 44px;
-  --field-height: 48px;
-  --pill-height: 36px;
-  --nav-height: 64px;
+  /* spacing: (5px 기반) */
+  --s-xxs: 4px; --s-xs: 8px; --s-sm: 12px; --s-md: 15px; --s-lg: 20px; --s-xl: 30px; --s-xxl: 40px; --s-section: 96px;
 
-  /* §7 모션 */
-  --dur: 200ms;
-  --dur-slow: 300ms;
-  --ease: cubic-bezier(0.2, 0, 0, 1);
+  /* layout */
+  --container-max: 1199px;
+  --gutter: 30px;
+  --gutter-mobile: 16px;
+  --panel-reading: clamp(36rem, 42vw, 48rem);   /* 읽기 패널 폭 */
+  --panel-wide: 1120px;                          /* 도구 패널 폭 */
+  --nav-height: 56px;                            /* components.top-nav */
+
+  /* motion */
+  --dur: 200ms; --dur-slow: 600ms; --ease: cubic-bezier(0.2, 0, 0, 1);
+  color-scheme: dark;
 }

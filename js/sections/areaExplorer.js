@@ -5,7 +5,11 @@ import { ACTIONS, FILTER_IDS } from '../state.js';
 
 function areaCard(r, copy) {
   const src = r.source || {};
+  const photo = r.photo ? el('div', { class: 'area-card__photo' },
+    el('img', { src: `assets/images/${r.photo.image}-960.webp`, alt: r.photo.alt, loading: 'lazy', decoding: 'async', width: '960', height: '720' })) : null;
   return el('article', { class: 'card area-card', dataset: { region: r.id, state: 'neutral', selected: 'false' } },
+    photo,
+    el('div', { class: 'area-card__body' },
     el('div', { class: 'area-card__head' },
       el('h3', { class: 'card-title' }, r.name, ' ', el('span', { class: 'caption', text: r.nameKo || '' })),
       el('span', { class: 'eyebrow area-card__selected', text: 'Selected', hidden: true, dataset: { selectedBadge: '' } }),
@@ -19,8 +23,9 @@ function areaCard(r, copy) {
       meter(r.scores.calm, { label: '조용함' }),
     ),
     el('p', { class: 'caption', text: r.recommendedFor }),
-    el('p', { class: 'source', text: `${src.label || '편집자 평가'} · ${src.asOf || '확인불가'}` }),
+    el('p', { class: 'source', text: `${src.label || '편집자 평가'} · ${src.asOf || '확인불가'}${r.photo ? ` · Photo ${r.photo.artist} (${r.photo.license})` : ''}` }),
     el('button', { type: 'button', class: 'btn btn--secondary', dataset: { action: 'select-area', region: r.id }, 'aria-pressed': 'false', text: '내 베이스로 선택' }),
+    ),
   );
 }
 
