@@ -1,50 +1,183 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+Sync Impact Report
+- Version change: 1.0.0 → 1.0.1 (PATCH: 원칙 II '정적 파일' 문구를 '정적 서버로 서빙'으로 명확화 —
+  ES 모듈은 file:// 직접 열기에서 브라우저가 차단하므로)
+- Modified principles: 없음 (최초 제정, 템플릿 자리표시자 전부 치환)
+- Added sections:
+  - Core Principles I~VIII (템플릿 기본 5개 → 프로젝트 성격에 맞춰 8개로 확장)
+  - 추가 제약 (Additional Constraints)  [SECTION_2]
+  - 개발 워크플로 및 품질 게이트 (Development Workflow & Quality Gates)  [SECTION_3]
+  - Governance
+- Removed sections: 없음
+- Templates requiring review:
+  - .specify/templates/plan-template.md — Constitution Check 항목을 원칙 I~VIII의 "검토 기준"으로
+    채울 것 (런타임 참조 대상이며 본 명령에서는 수정하지 않음)
+  - .specify/templates/spec-template.md ✅ 변경 불필요
+  - .specify/templates/tasks-template.md ✅ 변경 불필요 (원칙 I·IV는 태스크 설명·완료 조건으로 충족)
+  - .specify/templates/checklist-template.md ✅ 변경 불필요
+- Follow-up TODOs: 없음
+-->
+
+# BALI 365 Constitution
+
+BALI 365는 "디지털노마드로 발리에서 1년 살기"를 주제로, 사용자가 지역·예산·원격근무 환경·장기 체류
+준비를 탐색하고 자신만의 Bali Year Plan을 만드는 인터랙티브 싱글페이지 웹사이트이다. 본 헌장은 BALI 365의
+스펙·계획·태스크·구현·리뷰 전 단계에서 지켜야 할 원칙을 정의한다. 각 원칙은 이름, 규칙, 이유, 검토
+기준으로 구성되며, 규칙의 강제 수준은 MUST(반드시)·MUST NOT(금지)·SHOULD(권장)로 표기한다.
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. 명세·디자인 문서 우선 (Spec & Design First)
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+**규칙**
+- 모든 구현 태스크는 `spec.md`의 FR/SC 식별자 또는 `DESIGN.md`의 규칙 중 하나 이상을 MUST 참조한다.
+- 명세나 디자인 기준을 바꾸고 싶으면 코드보다 문서를 MUST 먼저 고친다. 구현 중 임의로 디자인 값을
+  바꾸는 것을 MUST NOT 한다.
+- 문서 간 충돌은 `spec.md`(무엇) → `DESIGN.md`(어떻게 보이는가) → `plan.md`(어떻게 만드는가) 순으로
+  상위 문서가 우선한다. 단, 접근성 기준과 시각 시안이 충돌하면 접근성이 이긴다.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+**이유**: 이 프로젝트의 핵심 메시지는 "AI에게 더 길게 설명하는 것이 아니라 원하는 결과를 확인 가능한
+조건으로 바꾸는 것"이다. 추적성이 없으면 확인 가능성이 사라진다.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+**검토 기준**: 태스크마다 FR/SC/DESIGN 참조가 있는가. 코드 리뷰에서 문서에 없는 시각 값·동작이 발견되면
+문서를 먼저 갱신했는가.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### II. 정적·무서버 (Static, Serverless, Local-Only)
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+**규칙**
+- 사이트는 HTML·CSS·바닐라 JavaScript만으로 MUST 동작한다. 빌드 도구·프레임워크·번들러를 MUST NOT
+  요구한다(정적 파일을 어떤 정적 파일 서버로든 그대로 서빙하면 동작해야 하며, 변환 단계가 없어야 한다).
+- 백엔드·로그인·데이터베이스·외부 API 호출을 MUST NOT 사용한다. 환율·날씨·지도도 마찬가지이다.
+- 사용자 상태는 브라우저 로컬 저장소에만 MUST 저장한다. 어떤 사용자 데이터도 기기 밖으로 MUST NOT
+  전송한다.
+- 외부 자원은 웹폰트 수준으로 SHOULD 제한하며, 외부 자원이 로드되지 않아도 사이트는 MUST 동작한다.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+**이유**: 사용자가 명시한 기술 범위이며, 시연 환경(로컬 파일·정적 호스팅)에서 그대로 재현되어야 한다.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+**검토 기준**: `fetch`·`XMLHttpRequest`·외부 스크립트 호출이 있는가. 로컬 저장소 외 저장 경로가 있는가.
+네트워크를 끊고 열었을 때 폰트 대체 외에 깨지는 것이 있는가.
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### III. 테스트 우선 (Test-First for Logic) — NON-NEGOTIABLE
+
+**규칙**
+- 상태·계산 로직(필터 매칭, 예산 합계·연간·환율 환산, 저장/복원·손상 복구, 요약 생성)은 UI와 분리된 순수
+  함수로 MUST 작성하고, 테스트를 먼저 쓰고 실패를 확인한 뒤 구현한다(Red → Green → Refactor).
+- 테스트는 추가 설치 없이 실행되는 도구(예: Node 내장 테스트 러너)로 SHOULD 돌린다.
+- UI 동작(클릭·입력·새로고침 복원·모바일 폭)은 `quickstart.md`의 시나리오로 브라우저에서 MUST 검증하며,
+  검증하기 전에는 "된다"고 MUST NOT 보고한다.
+
+**이유**: 완료 조건 8개 중 5개(선택·비교·계산·저장·복원)가 로직 정확성에 달려 있다. 이 워크스페이스의
+앞선 프로젝트에서 "로컬에서만 통과하는 결함"을 세 번 겪었다.
+
+**검토 기준**: 로직 모듈마다 테스트 파일이 있는가. 테스트가 구현보다 먼저 커밋 이력에 있는가(또는 같은
+커밋에 함께 있는가). 브라우저 검증 결과가 보고에 포함되어 있는가.
+
+### IV. 접근성·반응형 (Accessible & Responsive)
+
+**규칙**
+- 본문·보조 텍스트는 배경과 4.5:1 이상, 큰 텍스트(24px 이상 또는 18.66px 굵게)와 UI 경계는 3:1 이상의
+  명도 대비를 MUST 갖는다. 대비는 눈이 아니라 계산으로 MUST 검증한다.
+- 모든 상호작용 요소는 키보드로 MUST 조작할 수 있고, 포커스 표시가 MUST 보이며, 의미 있는 레이블·역할을
+  MUST 갖는다.
+- 화면 폭 320·390·768·1024·1440px에서 페이지 전체 가로 스크롤이 MUST NOT 생긴다. 모바일에서는 모든
+  격자를 한 열로 MUST 바꾼다.
+- 움직임 감소 선호(prefers-reduced-motion)를 MUST 존중한다.
+
+**이유**: 완료 조건 6이 직접 요구하며, 앞선 프로젝트에서 4.45:1처럼 눈으로 못 잡는 대비 미달을 겪었다.
+
+**검토 기준**: 색 조합별 대비 계산표가 DESIGN.md 또는 검증 기록에 있는가. 다섯 폭에서 `scrollWidth ≤
+clientWidth`를 확인했는가. Tab 키만으로 지역 선택·예산 입력·체크가 되는가.
+
+### V. 콘텐츠 신뢰성 (Trustworthy Content)
+
+**규칙**
+- 수치·등급·참고 생활비에는 출처 또는 "편집자 평가(기준 시점)"를 MUST 병기하고, 확인하지 못한 값은
+  "확인불가"로 MUST 표기한다.
+- 비자·체류 정보는 법률 자문처럼 읽히는 단정 표현("가능하다·된다·허용된다")을 MUST NOT 쓰고, 제도 변경
+  가능성과 공식 인도네시아 이민청 확인 안내, Last Updated 날짜를 MUST 포함한다.
+- 계절·날씨 정보는 완화된 표현("대체로·~로 알려져 있다")과 "참고" 표기를 MUST 갖는다.
+- 콘텐츠(지역·월·비자·Local Life)는 화면 구조와 분리된 데이터로 MUST 관리해 교체 시 구조 변경이 없게 한다.
+
+**이유**: 사용자의 이주·체류 결정에 영향을 주는 정보이다. 잘못된 단정은 실제 손해로 이어질 수 있다.
+
+**검토 기준**: 수치가 있는 요소 중 출처·평가 표기가 없는 것이 있는가. 비자 영역에서 금지 표현을 검색해
+0건인가. 콘텐츠 데이터 파일을 바꿔도 화면 코드가 그대로인가.
+
+### VI. 단순성 (Simplicity, YAGNI)
+
+**규칙**
+- 파일 구조는 `index.html` 하나와 스타일·스크립트·데이터 폴더 수준으로 SHOULD 유지한다. 섹션은 독립된
+  모듈로 나누되, 추상화 계층을 MUST NOT 미리 만든다.
+- 스펙에 없는 기능(회원, 공유 링크, 다국어, 실시간 환율, 지도)을 MUST NOT 추가한다.
+- 애니메이션은 hover·fade·작은 이동(200~300ms)으로 SHOULD 제한한다.
+
+**이유**: 20분 시연에서 명세 → 디자인 → 구현 → 검증의 흐름을 보여주는 것이 목적이다. 복잡성은 흐름을
+가린다.
+
+**검토 기준**: 스펙에 없는 기능이 코드에 있는가. 한 섹션의 코드를 읽는 데 다른 섹션의 내부를 알아야 하는가.
+
+### VII. 상태 저장의 견고성 (Robust Local State)
+
+**규칙**
+- 저장 데이터는 형식 버전을 MUST 포함하고, 읽을 때 검증해 손상·구버전 데이터는 해당 부분만 초기값으로
+  MUST 되돌린다.
+- 저장이 불가능한 환경(사생활 보호 모드·차단)에서도 사이트는 MUST 동작하며 저장되지 않음을 한 번 MUST
+  안내한다. 저장소 접근은 예외를 MUST 처리한다.
+- 저장 키는 하나의 접두어로 MUST 묶어 다른 사이트·앱과 충돌하지 않게 한다.
+
+**이유**: 완료 조건 4·5(저장·새로고침 유지)는 예외 상황에서도 성립해야 한다.
+
+**검토 기준**: 저장소에 손상된 JSON을 넣고 열었을 때 화면이 정상인가. 저장소를 차단한 상태에서 안내가
+한 번만 나오는가.
+
+### VIII. 검증 전 완료 선언 금지 (Verify Before Claiming Done)
+
+**규칙**
+- 태스크 완료를 보고하기 전에 해당 태스크의 완료 조건을 실제로 실행(테스트·브라우저 확인)하고 그 결과를
+  MUST 함께 보고한다. 실패·건너뜀은 그대로 MUST 보고한다.
+- 최종 검증은 `spec.md`와 `DESIGN.md` 기준으로 Requirement 미충족·Interaction·Visual·Responsive·
+  Accessibility 다섯 범주를 MUST 점검하고, High severity부터 고친 뒤 재검증한다.
+
+**이유**: 워크스페이스 규칙("원격에 한 번 올려 실제로 돌려보기 전에는 된다고 말하지 않는다")과 같은
+취지이다.
+
+**검토 기준**: 완료 보고에 실행 결과(테스트 출력·확인한 화면 폭·검증 시나리오 번호)가 있는가.
+
+## 추가 제약 (Additional Constraints)
+
+- **언어와 문체**: 화면 텍스트는 한국어, 섹션·키워드 영문 표기는 사용자 입력 그대로 쓴다. 산출물 문서는
+  문어체 "~이다"로 쓰고 줄임말은 첫 등장 시 정식 명칭을 풀어 쓴다.
+- **시각 기준**: 프로젝트 루트 `DESIGN.md`가 색·타이포그래피·간격·카드·버튼·반응형의 단일 출처이다.
+- **성능**: Hero 이미지를 포함한 초기 로드 자원은 총 1MB 이하를 SHOULD 목표로 하고, 이미지는 지연 로드와
+  적절한 크기를 쓴다.
+- **브라우저 지원**: 최신 Chrome·Safari·Firefox·Edge와 iOS Safari·Android Chrome의 최근 2개 버전을
+  대상으로 한다.
+- **저장소**: `bali_365/`는 상위 워크스페이스와 별개의 git 저장소이다. 커밋은 기능 단위로 묶는다.
+
+## 개발 워크플로 및 품질 게이트 (Development Workflow & Quality Gates)
+
+- **단계**: `/speckit-specify` → `/speckit-constitution` → `DESIGN.md` → `/speckit-plan` → `/speckit-tasks`
+  → `/speckit-implement` → 최종 검증. 각 단계 산출물은 다음 단계의 입력이며, 앞 단계 문서를 건너뛰고
+  구현하지 않는다.
+- **태스크 순서**: 기본 구조 → 디자인 토큰 → 콘텐츠 섹션 → 인터랙션 → 로컬 저장 → 반응형 → 접근성 →
+  최종 검증.
+- **게이트 1(계획)**: plan.md의 Constitution Check가 원칙 I~VIII를 모두 통과해야 태스크를 생성한다.
+- **게이트 2(태스크)**: 각 태스크에 무엇을 구현하는지·관련 FR/SC·관련 DESIGN 규칙·완료 확인 방법이 있어야
+  구현을 시작한다.
+- **게이트 3(구현)**: 로직 모듈은 테스트 통과, UI는 quickstart 시나리오 통과, 다섯 폭 가로 스크롤 없음,
+  대비 계산표 통과를 확인한 뒤 완료로 표시한다.
+- **커밋**: 기능 단위로 묶고, 안전 검사를 우회하는 옵션을 쓰지 않는다.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+- 본 헌장은 BALI 365의 다른 모든 관행보다 우선한다. 계획·태스크·구현·리뷰는 헌장 준수 여부를 확인해야
+  한다.
+- **개정 절차**: 개정 제안은 변경 이유·영향 범위·이행 방법을 문서로 남기고, 사용자 승인 후 반영한다.
+  개정 시 상단 Sync Impact Report를 갱신한다.
+- **버전 정책**: MAJOR는 원칙의 삭제·재정의 등 하위 호환이 깨지는 변경, MINOR는 원칙·절 추가 또는 지침의
+  실질적 확장, PATCH는 문구 명확화·오탈자 수정이다.
+- **준수 검토**: `/speckit-plan`의 Constitution Check, `/speckit-tasks`의 태스크 형식, `/speckit-implement`
+  완료 보고, 최종 검증 프롬프트에서 원칙별 검토 기준을 적용한다. 원칙 위반이 불가피하면 plan.md의
+  Complexity Tracking에 위반·이유·기각한 대안을 기록한다.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.1 | **Ratified**: 2026-09-13 | **Last Amended**: 2026-09-13
