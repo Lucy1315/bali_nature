@@ -30,7 +30,10 @@
 .scene--hero .scene__panel { max-width: 44rem; gap: var(--s-lg); }
 .hero__title { font-family: var(--font-display); font-size: var(--fs-display-xxl); font-weight: 600; line-height: 0.9; letter-spacing: -0.04em; }
 .hero__subtitle { font-size: var(--fs-subhead); font-weight: 500; letter-spacing: -0.01em; }
-.hero__tagline { font-size: var(--fs-body-lg); line-height: 1.55; max-width: 34ch; }
+.hero__tagline { font-size: var(--fs-body-lg); line-height: 1.55; max-width: 46ch; }
+@media (min-width: 640px) {
+  .hero__tagline { max-width: none; white-space: nowrap; }
+}
 .hero__cta { align-self: flex-start; margin-top: var(--s-xs); }
 
 /* Why Bali — 2×2 */

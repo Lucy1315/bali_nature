@@ -17,6 +17,6 @@ export function render(root, data, state, part) {
       )),
     ),
   );
-  if (nums.includes(12)) body.append(el('p', { class: 'source', text: `계절·날씨 메모는 일반적으로 알려진 경향을 완화해 적은 것이다 · 기준 ${data.months[0]?.asOf ?? '—'}` }));
+  if (nums.includes(12)) body.append(el('p', { class: 'source', text: `계절·날씨 메모는 단정이 아니라 일반적인 경향을 적은 참고 정보이다 · 기준 ${data.months[0]?.asOf ?? '—'}` }));
 }
 export function bind() {}
